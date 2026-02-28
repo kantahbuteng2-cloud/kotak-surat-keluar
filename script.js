@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Typing effect
     const texts = [
-        "Menyiapkan dokumen...",
+        "Menyiapkan halaman...",
         "Memuat data surat...",
         "Hampir selesai..."
     ];
