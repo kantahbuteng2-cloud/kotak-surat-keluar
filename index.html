@@ -4,30 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surat Keluar</title>
-    
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="iframe-container">
-        <!-- Iframe (di belakang) -->
-        <iframe
-            id="sipenaFrame"
-            src="https://script.google.com/macros/s/AKfycbxFKpZmja9bELcLfD0WXZuIwQ2jKoEoCAwulet4EYyOvOtRjvd-_vSuAwlwXVsaPgBZ6Q/exec"
-            allowfullscreen>
-        </iframe>
-
-        <!-- Loading Screen (di atas iframe) -->
+    <div class="container">
+        <!-- Loading Screen -->
         <div class="loading-screen" id="loadingScreen">
-            <div class="loading-content">
-                <div class="loading-spinner"></div>
-                <div class="loading-text">Memuat Surat Keluar</div>
-                <div class="loading-subtext">Mohon tunggu sebentar...</div>
-            </div>
+            <div class="loader"></div>
+            <div class="loading-text">Memuat Surat Keluar...</div>
+            <div class="loading-subtext">Mohon tunggu 3 detik</div>
         </div>
+
+        <!-- Iframe -->
+        <iframe 
+            id="sipenaFrame" 
+            src="https://script.google.com/macros/s/AKfycbxFKpZmja9bELcLfD0WXZuIwQ2jKoEoCAwulet4EYyOvOtRjvd-_vSuAwlwXVsaPgBZ6Q/exec"
+            frameborder="0">
+        </iframe>
     </div>
 
-    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
