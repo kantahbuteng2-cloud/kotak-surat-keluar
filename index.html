@@ -10,14 +10,60 @@
 </head>
 <body>
     <div class="iframe-container">
-        <!-- Loading Screen -->
+        <!-- Loading Screen Keren -->
         <div class="loading-screen" id="loadingScreen">
             <div class="loading-content">
-                <div class="loading-spinner"></div>
-                <div class="loading-text">Memuat Surat Keluar</div>
-                <div class="loading-subtext">Mohon tunggu sebentar...</div>
+                <!-- Spinner Keren -->
+                <div class="spinner-container">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring ring2"></div>
+                    <div class="spinner-ring ring3"></div>
+                    <div class="spinner-logo">
+                        <svg viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Text dengan Animasi -->
+                <div class="loading-text">
+                    <span>M</span>
+                    <span>e</span>
+                    <span>m</span>
+                    <span>u</span>
+                    <span>a</span>
+                    <span>t</span>
+                    <span>&nbsp;</span>
+                    <span>S</span>
+                    <span>u</span>
+                    <span>r</span>
+                    <span>a</span>
+                    <span>t</span>
+                    <span>&nbsp;</span>
+                    <span>K</span>
+                    <span>e</span>
+                    <span>l</span>
+                    <span>u</span>
+                    <span>a</span>
+                    <span>r</span>
+                </div>
+                
+                <!-- Subtext dengan Typing Effect -->
+                <div class="typing-effect" id="typingText"></div>
+                
+                <!-- Progress Bar dengan Gradient -->
                 <div class="loading-progress">
                     <div class="progress-bar" id="progressBar"></div>
+                </div>
+                
+                <!-- Angka Persentase -->
+                <div class="progress-percentage" id="progressPercentage">0%</div>
+                
+                <!-- Dot Animation -->
+                <div class="dot-animation">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
                 </div>
             </div>
         </div>
