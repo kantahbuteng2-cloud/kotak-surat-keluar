@@ -1,37 +1,144 @@
 /* Reset dasar */
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
-width: 100%;
-height: 100%;
-font-family: Arial, sans-serif;
+    width: 100%;
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    overflow: hidden;
 }
 
 /* Container responsif */
 .iframe-container {
-position: relative;
-width: 100%;
-height: 100vh; /* penuh layar */
-overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* Iframe proporsional */
 .iframe-container iframe {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.iframe-container iframe.loaded {
+    opacity: 1;
+}
+
+/* Loading Screen Styles */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+.loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+.loading-text {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.loading-subtext {
+    font-size: 16px;
+    opacity: 0.9;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.loading-progress {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    margin: 20px auto 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #fff, #a8e6cf);
+    border-radius: 4px;
+}
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
 }
 
 /* Penyesuaian mobile */
 @media (max-width: 768px) {
-.iframe-container {
-height: 100vh;
+    .loading-text {
+        font-size: 20px;
+    }
+    
+    .loading-progress {
+        width: 250px;
+    }
+    
+    .loading-spinner {
+        width: 50px;
+        height: 50px;
+    }
 }
+
+@media (max-width: 480px) {
+    .loading-text {
+        font-size: 18px;
+    }
+    
+    .loading-subtext {
+        font-size: 14px;
+    }
+    
+    .loading-progress {
+        width: 200px;
+    }
 }
