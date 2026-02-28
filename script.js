@@ -8,82 +8,92 @@ function setIframeHeight() {
 
 // Event listener untuk resize window
 window.addEventListener("resize", setIframeHeight);
+window.addEventListener("load", setIframeHeight);
 
-// Fungsi utama untuk menangani loading
+// Fungsi utama loading screen
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded');
-    
-    const iframe = document.getElementById('sipenaFrame');
     const loadingScreen = document.getElementById('loadingScreen');
     const progressBar = document.getElementById('progressBar');
+    const progressPercentage = document.getElementById('progressPercentage');
+    const typingText = document.getElementById('typingText');
     
     // Set tinggi iframe
     setIframeHeight();
     
-    // Tampilkan loading screen
-    loadingScreen.style.display = 'flex';
-    loadingScreen.classList.remove('hidden'); // Pastikan loading screen terlihat
+    // Typing effect
+    const texts = [
+        "Menyiapkan dokumen...",
+        "Memuat data surat...",
+        "Hampir selesai..."
+    ];
+    let textIndex = 0;
     
-    // Sembunyikan iframe dulu
-    iframe.classList.remove('loaded');
+    function typeText() {
+        const text = texts[textIndex];
+        let charIndex = 0;
+        
+        function type() {
+            if (charIndex < text.length) {
+                typingText.textContent = text.substring(0, charIndex + 1);
+                charIndex++;
+                setTimeout(type, 100);
+            } else {
+                setTimeout(erase, 2000);
+            }
+        }
+        
+        function erase() {
+            if (charIndex > 0) {
+                typingText.textContent = text.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 50);
+            } else {
+                textIndex = (textIndex + 1) % texts.length;
+                setTimeout(type, 500);
+            }
+        }
+        
+        type();
+    }
     
-    // Progress bar animation (akan mencapai 100% dalam 3 detik)
+    // Mulai typing effect
+    typeText();
+    
+    // Progress bar animation
     let progress = 0;
     const progressInterval = setInterval(function() {
         if (progress < 100) {
             progress += 1;
-            if (progressBar) {
-                progressBar.style.width = progress + '%';
-            }
+            progressBar.style.width = progress + '%';
+            progressPercentage.textContent = progress + '%';
         }
     }, 30); // 30ms * 100 = 3000ms (3 detik)
     
-    // Fungsi untuk menyembunyikan loading
-    function hideLoading() {
-        console.log('Hiding loading screen after 3 seconds');
+    // Hilangkan loading screen setelah 3 detik
+    setTimeout(function() {
         clearInterval(progressInterval);
         
-        // Set progress ke 100%
-        if (progressBar) {
-            progressBar.style.width = '100%';
-        }
+        // Set ke 100%
+        progressBar.style.width = '100%';
+        progressPercentage.textContent = '100%';
         
-        // Sembunyikan loading screen
+        // Sembunyikan loading screen dengan animasi
         loadingScreen.classList.add('hidden');
-        iframe.classList.add('loaded');
         
-        // Setelah animasi selesai, pastikan iframe terlihat
+        // Aktifkan scrolling
         setTimeout(function() {
             document.body.style.overflow = 'auto';
-        }, 500);
-    }
-    
-    // Tunggu tepat 3 detik, lalu sembunyikan loading screen
-    setTimeout(hideLoading, 3000); // 3000ms = 3 detik
-    
-    // Tetap dengarkan event load jika iframe butuh waktu lebih dari 3 detik
-    // Tapi kita tetap akan sembunyikan loading setelah 3 detik
-    iframe.addEventListener('load', function() {
-        console.log('Iframe loaded');
-        // Tidak perlu lakukan apa-apa karena loading akan hilang dalam 3 detik
-    });
-    
-    // Handle error
-    iframe.addEventListener('error', function() {
-        console.log('Iframe error');
-    });
+        }, 800);
+    }, 3000);
 });
 
-// Backup saat window load
-window.addEventListener("load", function() {
-    console.log('Window loaded');
-    setIframeHeight();
-});
-
-// Handle jika pengguna melakukan refresh
-window.addEventListener('beforeunload', function() {
+// Backup jika ada masalah
+window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) {
-        loadingScreen.classList.remove('hidden');
-    }
+    setTimeout(function() {
+        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+            loadingScreen.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    }, 4000);
 });
