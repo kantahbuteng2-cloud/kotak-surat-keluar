@@ -1,81 +1,79 @@
-// Fungsi untuk mengatur tinggi iframe
-function setIframeHeight() {
-    const iframe = document.getElementById("sipenaFrame");
-    if (iframe) {
-        iframe.style.height = window.innerHeight + "px";
-    }
-}
-
-// Event listener untuk resize window
-window.addEventListener("resize", setIframeHeight);
-
-// Fungsi utama untuk menangani loading
+// Tunggu sampai semua konten siap
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - Memulai loading screen');
     
+    // Ambil elemen yang diperlukan
     const loadingScreen = document.getElementById('loadingScreen');
+    const iframe = document.getElementById('sipenaFrame');
     
-    // Set tinggi iframe
+    // Set tinggi iframe sesuai tinggi window
+    function setIframeHeight() {
+        iframe.style.height = window.innerHeight + 'px';
+    }
+    
+    // Panggil saat pertama kali
     setIframeHeight();
+    
+    // Panggil saat window di-resize
+    window.addEventListener('resize', setIframeHeight);
     
     // Pastikan loading screen terlihat
-    loadingScreen.classList.remove('hidden');
-    loadingScreen.style.opacity = '1';
-    loadingScreen.style.visibility = 'visible';
+    loadingScreen.classList.remove('hide');
     
-    console.log('Loading screen akan hilang dalam 3 detik');
+    console.log('Loading screen dimulai');
     
-    // Tunggu 3 detik, lalu sembunyikan loading screen
+    // Timer 3 detik untuk menghilangkan loading screen
     setTimeout(function() {
-        console.log('3 detik berlalu - Menyembunyikan loading screen');
-        loadingScreen.classList.add('hidden');
+        console.log('3 detik berlalu, menghilangkan loading screen');
+        loadingScreen.classList.add('hide');
         
-        // Setelah loading screen hilang, aktifkan scrolling
+        // Aktifkan scrolling setelah loading hilang
         setTimeout(function() {
             document.body.style.overflow = 'auto';
-            console.log('Loading screen berhasil disembunyikan');
         }, 500);
-    }, 3000); // 3000ms = 3 detik
+        
+    }, 3000);
+    
+    // Backup: jika iframe sudah siap sebelum 3 detik
+    iframe.addEventListener('load', function() {
+        console.log('Iframe sudah siap');
+        // Tidak perlu melakukan apa-apa, tetap tunggu 3 detik
+    });
+    
 });
 
-// Backup dengan multiple cara untuk memastikan loading hilang
-window.addEventListener("load", function() {
-    console.log('Window load event - Memastikan loading screen hilang');
-    setIframeHeight();
-    
+// Backup tambahan: jika ada masalah dengan DOMContentLoaded
+window.addEventListener('load', function() {
+    console.log('Window loaded');
     const loadingScreen = document.getElementById('loadingScreen');
+    const iframe = document.getElementById('sipenaFrame');
     
-    // Backup: jika loading screen masih ada setelah window load, hilangkan setelah 1 detik
+    // Set tinggi iframe
+    iframe.style.height = window.innerHeight + 'px';
+    
+    // Jika loading screen masih ada setelah 3.5 detik, paksa hilangkan
     setTimeout(function() {
-        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
-            console.log('Backup: Memaksa loading screen hilang');
-            loadingScreen.classList.add('hidden');
+        if (loadingScreen && !loadingScreen.classList.contains('hide')) {
+            console.log('Backup: memaksa loading screen hilang');
+            loadingScreen.classList.add('hide');
             document.body.style.overflow = 'auto';
         }
-    }, 1000);
+    }, 3500);
 });
 
-// Backup lagi dengan timer independen
+// Backup terakhir: paksa hilang setelah 5 detik
 setTimeout(function() {
     const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
-        console.log('Backup timer: Memaksa loading screen hilang setelah 5 detik');
-        loadingScreen.classList.add('hidden');
+    if (loadingScreen && !loadingScreen.classList.contains('hide')) {
+        console.log('Final backup: memaksa loading screen hilang');
+        loadingScreen.classList.add('hide');
         document.body.style.overflow = 'auto';
     }
-}, 5000); // 5 detik sebagai fallback terakhir
+}, 5000);
 
-// Handle jika pengguna melakukan refresh
-window.addEventListener('beforeunload', function() {
-    const loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) {
-        loadingScreen.classList.remove('hidden');
-        loadingScreen.style.opacity = '1';
-        loadingScreen.style.visibility = 'visible';
-    }
-});
-
-// Untuk memastikan iframe tetap proporsional saat orientasi layar berubah
+// Atasi masalah orientation change di mobile
 window.addEventListener('orientationchange', function() {
-    setTimeout(setIframeHeight, 100);
+    setTimeout(function() {
+        const iframe = document.getElementById('sipenaFrame');
+        iframe.style.height = window.innerHeight + 'px';
+    }, 100);
 });
