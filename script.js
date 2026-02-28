@@ -1,41 +1,89 @@
-// Pastikan iframe selalu menyesuaikan tinggi layar
-window.addEventListener("resize", setIframeHeight);
-window.addEventListener("load", setIframeHeight);
-
+// Fungsi untuk mengatur tinggi iframe
 function setIframeHeight() {
     const iframe = document.getElementById("sipenaFrame");
-    iframe.style.height = window.innerHeight + "px";
+    if (iframe) {
+        iframe.style.height = window.innerHeight + "px";
+    }
 }
 
-// Tambahkan loading sederhana
+// Event listener untuk resize window
+window.addEventListener("resize", setIframeHeight);
+
+// Fungsi utama untuk menangani loading
 document.addEventListener('DOMContentLoaded', function() {
-    // Buat elemen loading sederhana
-    const loading = document.createElement('div');
-    loading.id = 'simple-loading';
-    loading.style.position = 'fixed';
-    loading.style.top = '0';
-    loading.style.left = '0';
-    loading.style.width = '100%';
-    loading.style.height = '100%';
-    loading.style.background = '#667eea';
-    loading.style.display = 'flex';
-    loading.style.justifyContent = 'center';
-    loading.style.alignItems = 'center';
-    loading.style.zIndex = '9999';
-    loading.style.color = 'white';
-    loading.style.fontSize = '24px';
-    loading.style.fontFamily = 'Arial, sans-serif';
-    loading.innerHTML = 'Memuat Surat Keluar...';
+    console.log('DOM loaded');
     
-    // Tambahkan ke body
-    document.body.appendChild(loading);
+    const iframe = document.getElementById('sipenaFrame');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const progressBar = document.getElementById('progressBar');
     
-    // Hilangkan setelah 3 detik
-    setTimeout(function() {
-        loading.style.opacity = '0';
-        loading.style.transition = 'opacity 0.5s';
+    // Set tinggi iframe
+    setIframeHeight();
+    
+    // Tampilkan loading screen
+    loadingScreen.style.display = 'flex';
+    loadingScreen.classList.remove('hidden'); // Pastikan loading screen terlihat
+    
+    // Sembunyikan iframe dulu
+    iframe.classList.remove('loaded');
+    
+    // Progress bar animation (akan mencapai 100% dalam 3 detik)
+    let progress = 0;
+    const progressInterval = setInterval(function() {
+        if (progress < 100) {
+            progress += 1;
+            if (progressBar) {
+                progressBar.style.width = progress + '%';
+            }
+        }
+    }, 30); // 30ms * 100 = 3000ms (3 detik)
+    
+    // Fungsi untuk menyembunyikan loading
+    function hideLoading() {
+        console.log('Hiding loading screen after 3 seconds');
+        clearInterval(progressInterval);
+        
+        // Set progress ke 100%
+        if (progressBar) {
+            progressBar.style.width = '100%';
+        }
+        
+        // Sembunyikan loading screen
+        loadingScreen.classList.add('hidden');
+        iframe.classList.add('loaded');
+        
+        // Setelah animasi selesai, pastikan iframe terlihat
         setTimeout(function() {
-            loading.remove();
+            document.body.style.overflow = 'auto';
         }, 500);
-    }, 3000);
+    }
+    
+    // Tunggu tepat 3 detik, lalu sembunyikan loading screen
+    setTimeout(hideLoading, 3000); // 3000ms = 3 detik
+    
+    // Tetap dengarkan event load jika iframe butuh waktu lebih dari 3 detik
+    // Tapi kita tetap akan sembunyikan loading setelah 3 detik
+    iframe.addEventListener('load', function() {
+        console.log('Iframe loaded');
+        // Tidak perlu lakukan apa-apa karena loading akan hilang dalam 3 detik
+    });
+    
+    // Handle error
+    iframe.addEventListener('error', function() {
+        console.log('Iframe error');
+    });
+});
+
+// Backup saat window load
+window.addEventListener("load", function() {
+    console.log('Window loaded');
+    setIframeHeight();
+});
+
+// Handle jika pengguna melakukan refresh
+window.addEventListener('beforeunload', function() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        loadingScreen.classList.remove('hidden');
+    }
 });
