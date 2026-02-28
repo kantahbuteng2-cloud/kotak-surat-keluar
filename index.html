@@ -10,7 +10,14 @@
 </head>
 <body>
     <div class="iframe-container">
-        <!-- Loading Screen -->
+        <!-- Iframe (di belakang) -->
+        <iframe
+            id="sipenaFrame"
+            src="https://script.google.com/macros/s/AKfycbxFKpZmja9bELcLfD0WXZuIwQ2jKoEoCAwulet4EYyOvOtRjvd-_vSuAwlwXVsaPgBZ6Q/exec"
+            allowfullscreen>
+        </iframe>
+
+        <!-- Loading Screen (di atas iframe) -->
         <div class="loading-screen" id="loadingScreen">
             <div class="loading-content">
                 <div class="loading-spinner"></div>
@@ -21,13 +28,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Iframe -->
-        <iframe
-            id="sipenaFrame"
-            src="https://script.google.com/macros/s/AKfycbxFKpZmja9bELcLfD0WXZuIwQ2jKoEoCAwulet4EYyOvOtRjvd-_vSuAwlwXVsaPgBZ6Q/exec"
-            allowfullscreen>
-        </iframe>
     </div>
 
     <!-- JavaScript -->
