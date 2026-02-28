@@ -18,6 +18,7 @@ html, body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    background-color: #f0f0f0;
 }
 
 /* Iframe proporsional - di belakang */
@@ -28,12 +29,14 @@ html, body {
     width: 100%;
     height: 100%;
     border: none;
-    z-index: 1; /* Iframe di bawah */
+    z-index: 1;
+    background-color: white;
+    display: block;
 }
 
 /* Loading Screen - di atas iframe */
 .loading-screen {
-    position: absolute; /* Ubah dari fixed ke absolute */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -42,9 +45,10 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Loading screen di atas iframe */
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
     transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-    pointer-events: none; /* Biarkan klik tembus ke iframe jika perlu */
 }
 
 .loading-screen.hidden {
@@ -55,7 +59,7 @@ html, body {
 .loading-content {
     text-align: center;
     color: white;
-    pointer-events: none; /* Konten loading tidak bisa diklik */
+    padding: 20px;
 }
 
 .loading-spinner {
@@ -82,22 +86,6 @@ html, body {
     animation: pulse 2s ease-in-out infinite;
 }
 
-.loading-progress {
-    width: 300px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 4px;
-    margin: 20px auto 0;
-    overflow: hidden;
-}
-
-.progress-bar {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, #fff, #a8e6cf);
-    border-radius: 4px;
-}
-
 /* Animations */
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -115,10 +103,6 @@ html, body {
         font-size: 20px;
     }
     
-    .loading-progress {
-        width: 250px;
-    }
-    
     .loading-spinner {
         width: 50px;
         height: 50px;
@@ -132,9 +116,5 @@ html, body {
     
     .loading-subtext {
         font-size: 14px;
-    }
-    
-    .loading-progress {
-        width: 200px;
     }
 }
