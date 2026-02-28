@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surat Keluar</title>
-
-<!-- CSS -->
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Keluar</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="iframe-container">
-    <iframe
-        id="sipenaFrame"
-        src="https://script.google.com/macros/s/AKfycbxFKpZmja9bELcLfD0WXZuIwQ2jKoEoCAwulet4EYyOvOtRjvd-_vSuAwlwXVsaPgBZ6Q/exec"
-        loading="lazy"
-        allowfullscreen>
-    </iframe>
-</div>
+    <div class="iframe-container">
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Memuat Surat Keluar</div>
+                <div class="loading-subtext">Mohon tunggu sebentar...</div>
+                <div class="loading-progress">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </div>
 
-<!-- JavaScript -->
-<script src="script.js"></script>
+        <!-- Iframe -->
+        <iframe
+            id="sipenaFrame"
+            src="https://script.google.com/macros/s/AKfycbxFKpZmja9bELcLfD0WXZuIwQ2jKoEoCAwulet4EYyOvOtRjvd-_vSuAwlwXVsaPgBZ6Q/exec"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
