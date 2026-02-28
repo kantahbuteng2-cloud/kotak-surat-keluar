@@ -30,6 +30,7 @@ html, body {
     border: none;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    z-index: 1;
 }
 
 .iframe-container iframe.loaded {
@@ -47,7 +48,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 9999;
     transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
 }
 
@@ -99,7 +100,6 @@ html, body {
     height: 100%;
     background: linear-gradient(90deg, #fff, #a8e6cf);
     border-radius: 4px;
-    animation: progress 2s ease-in-out forwards;
 }
 
 /* Animations */
@@ -111,12 +111,6 @@ html, body {
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
-}
-
-@keyframes progress {
-    0% { width: 0%; }
-    50% { width: 70%; }
-    100% { width: 100%; }
 }
 
 /* Penyesuaian mobile */
@@ -135,7 +129,6 @@ html, body {
     }
 }
 
-/* Optional: Tambahan efek untuk layar yang sangat kecil */
 @media (max-width: 480px) {
     .loading-text {
         font-size: 18px;
