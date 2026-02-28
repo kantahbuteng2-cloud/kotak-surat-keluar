@@ -1,0 +1,41 @@
+/* Reset dasar */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+
+html, body {
+width: 100%;
+height: 100%;
+font-family: Arial, sans-serif;
+}
+
+
+/* Container responsif */
+.iframe-container {
+position: relative;
+width: 100%;
+height: 100vh; /* penuh layar */
+overflow: hidden;
+}
+
+
+/* Iframe proporsional */
+.iframe-container iframe {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+border: none;
+}
+
+
+/* Penyesuaian mobile */
+@media (max-width: 768px) {
+.iframe-container {
+height: 100vh;
+}
+}
